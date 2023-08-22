@@ -74,7 +74,7 @@ app.get('/user/:id', checkToken, async (req, res) => {
     return res.status(404).json({ message: 'Usuário não encontrado' });
   }
 
-  res.status(200).json({ user });
+  res.status(200).json(user);
   //feito
 });
 
