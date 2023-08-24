@@ -11,14 +11,14 @@ const port = process.env.PORT || 322;
 
 app.use(express.json());
 app.use(cors());
-const Agenda = require('./model/scheduling');
+const Agendas = require('./model/agendas');
 const Login = require('./model/login');
 
 connetToDb();
 
 // Open routes
 app.get('/', async (req, res) => {
-  const users = await Agenda.find();
+  const users = await Agendas.find();
   res.json(users);
 });
 
@@ -31,7 +31,7 @@ app.post('/ins', async (req, res) => {
     });
   }
   // Verificação de CPF
-  const cpfExists = await Agenda.findOne({ cpf: newUser.cpf });
+  const cpfExists = await Agendas.findOne({ cpf: newUser.cpf });
 
   if (cpfExists) {
     return res.status(422).json({
@@ -39,19 +39,19 @@ app.post('/ins', async (req, res) => {
     });
   }
 
-  await Agenda.create(newUser);
+  await Agendas.create(newUser);
   return res.status(201).json(newUser);
 });
 app.put('/ins/:id', async (req, res) => {
   const { id } = req.params;
   const updateUser = req.body;
-  await Agenda.findByIdAndUpdate(id, updateUser);
+  await Agendas.findByIdAndUpdate(id, updateUser);
 
   res.sendStatus(204);
 });
 app.delete('/ins/:id', async (req, res) => {
   const { id } = req.params;
-  await Agenda.findByIdAndDelete(id);
+  await Agendas.findByIdAndDelete(id);
 
   res.sendStatus(204);
 });

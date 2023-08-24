@@ -21,4 +21,4 @@ const portSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model('Agenda', portSchema);
+module.exports = mongoose.model('Agendas', portSchema);
